@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hamster Clicker</title>
+  <link rel="stylesheet" href="css.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="main-card">
+    <!-- Верхняя панель с карточками -->
+    <div class="top-stats">
+      <div class="stat-box">
+        <span id="statPerClick">3</span>
+        <label>за клик</label>
+      </div>
+      <div class="stat-box">
+        <span id="statPerSec">0</span>
+        <label>в секунду</label>
+      </div>
+      <div class="stat-box">
+        <span id="statGoal">100</span>
+        <label>до цели</label>
+      </div>
+    </div>
+    <!-- Баланс и уровень -->
+    <div class="balance-row">
+      <span class="coin">🪙</span>
+      <span id="balance" class="main-balance">0</span>
+    </div>
+    <div class="level-row">
+      <span id="levelName" class="level-name">1 уровень Базовый</span>
+    </div>
+    <div class="progress-bar">
+      <div id="progressInner" class="progress-inner"></div>
+    </div>
+    <!-- Центр: аватар + клик -->
+    <div class="avatar-wrap">
+      <div class="avatar-circle">🐹</div>
+      <button class="main-btn" id="mainClickBtn">КЛИК</button>
+    </div>
+    <!-- Энергия -->
+    <div class="energy-wrap">
+      <span class="energy-emoji">⚡</span>
+      <span id="energyText">20 / 20</span>
+    </div>
+    <div class="energy-bar">
+      <div id="energyInner" class="energy-inner"></div>
+    </div>
+  </div>
+  <!-- Нижнее меню -->
+  <nav class="bottom-nav">
+    <button class="nav-btn" data-upg="click">
+      <span>🖐️</span>
+      <div>Клик</div>
+    </button>
+    <button class="nav-btn" data-upg="autoclick">
+      <span>🤖</span>
+      <div>Автоклик</div>
+    </button>
+    <button class="nav-btn" data-upg="energy">
+      <span>⚡</span>
+      <div>Энергия</div>
+    </button>
+    <button class="nav-btn" data-upg="regen">
+      <span>🔋</span>
+      <div>Восстановление</div>
+    </button>
+  </nav>
+  <div id="upgradePanel" class="panel-bg" style="display:none"></div>
+  <script src="js.js"></script>
+</body>
+</html>
