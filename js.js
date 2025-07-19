@@ -3,7 +3,34 @@ const levelNames = [
   "Мастер", "Элита", "Легенда", "Герой", "Король"
 ];
 
-let coins = 999;
+// Генерируем 10 апгрейдов для каждой категории
+function createUpgrades(baseName, basePrice, baseBonus, multPrice, multBonus, isRegen = false) {
+  let arr = [];
+  for(let i=1;i<=10;i++) {
+    arr.push({
+      name: (isRegen?"+":"+") + (baseBonus + (i-1)*multBonus) + " " + baseName,
+      price: Math.round(basePrice * Math.pow(multPrice,i-1)),
+      bonus: baseBonus + (i-1)*multBonus
+    });
+  }
+  return arr;
+}
+
+let upgrades = {
+  click: createUpgrades("клик", 50, 1, 1.8, 1),
+  autoclick: createUpgrades("/сек", 100, 1, 2, 1),
+  energy: createUpgrades("энергия", 80, 5, 1.6, 5),
+  regen: createUpgrades("восстановление", 120, 1, 2, 1, true)
+};
+
+let bought = {
+  click: Array(10).fill(false),
+  autoclick: Array(10).fill(false),
+  energy: Array(10).fill(false),
+  regen: Array(10).fill(false)
+};
+
+let coins = 0;
 let level = 1;
 let perClick = 3;
 let perSec = 0;
@@ -14,34 +41,6 @@ let regenInterval = 1000;
 let regenTimer = null;
 let autoTimer = null;
 let levelTarget = 100;
-
-let upgrades = {
-  click: [
-    {name: "+1 клик", price:50, bonus:1},
-    {name:"+2 клик", price:120, bonus:2},
-    {name:"+5 клик", price:250, bonus:5}
-  ],
-  autoclick: [
-    {name:"+1/сек", price:150, bonus:1},
-    {name:"+2/сек", price:300, bonus:2},
-    {name:"+5/сек", price:600, bonus:5}
-  ],
-  energy: [
-    {name:"+5 энергия", price:80, bonus:5},
-    {name:"+10 энергия", price:200, bonus:10}
-  ],
-  regen: [
-    {name:"+1 восстановление", price:120, bonus:1},
-    {name:"+2 восстановление", price:400, bonus:2},
-    {name:"+3 восстановление", price:1200, bonus:3}
-  ]
-};
-let bought = {
-  click: [false,false,false],
-  autoclick: [false,false,false],
-  energy: [false,false],
-  regen: [false,false,false]
-};
 
 function render() {
   document.getElementById('balance').textContent = formatNum(coins);
@@ -125,7 +124,7 @@ function openUpgradePanel(type) {
     card.className = 'panel-item' + (bought[type][idx] ? ' bought' : '');
     let info = document.createElement('div');
     info.className = 'info';
-    info.innerHTML = `<strong>${upg.name}</strong><span>Цена: ${upg.price}</span>`;
+    info.innerHTML = `<strong>${upg.name}</strong><span>Цена: ${formatNum(upg.price)}</span>`;
     card.appendChild(info);
     let btn = document.createElement('button');
     btn.textContent = bought[type][idx] ? 'Куплено' : 'Купить';
