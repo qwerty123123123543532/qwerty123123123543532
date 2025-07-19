@@ -3,50 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hamster Clicker</title>
+  <title>Clicker Game</title>
   <link rel="stylesheet" href="css.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="main-card">
-    <div class="top-stats">
-      <div class="stat-box">
-        <span id="statPerClick">3</span>
-        <label>за клик</label>
-      </div>
-      <div class="stat-box">
-        <span id="statPerSec">0</span>
-        <label>в секунду</label>
-      </div>
-      <div class="stat-box">
-        <span id="statGoal">100</span>
-        <label>до цели</label>
-      </div>
+  <div class="main-topbar">
+    <div class="top-lvl">
+      <span class="levelCircle"><span id="levelNum">1</span></span>
+      <span id="levelShort">Базовый</span>
     </div>
-    <div class="balance-row">
-      <span class="coin">🪙</span>
-      <span id="balance" class="main-balance">0</span>
-    </div>
-    <div class="level-row">
-      <span id="levelName" class="level-name">1 уровень Базовый</span>
-    </div>
-    <div class="progress-bar">
-      <div id="progressInner" class="progress-inner"></div>
-    </div>
-    <div class="avatar-center">
-      <div class="avatar-circle">
-        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f439.png" alt="hamster" width="48" height="48" style="vertical-align:middle;">
-      </div>
-      <button class="main-btn" id="mainClickBtn">КЛИК</button>
-    </div>
-    <div class="energy-wrap">
+    <div class="top-energy">
       <span class="energy-emoji">⚡</span>
-      <span id="energyText">20 / 20</span>
+      <span id="energyText">20</span>
     </div>
-    <div class="energy-bar">
-      <div id="energyInner" class="energy-inner"></div>
+    <div class="top-balance">
+      <span class="coin">🪙</span>
+      <span id="balance">0</span>
     </div>
   </div>
+  <div class="energy-bar">
+    <div id="energyInner" class="energy-inner"></div>
+  </div>
+
+  <div class="top-stats-bar">
+    <div><b id="statPerClick">3</b> за клик</div>
+    <div><b id="statPerSec">0</b> в секунду</div>
+    <div><b id="statGoal">100</b> до цели</div>
+  </div>
+  <div class="center-wrap">
+    <div class="click-circle-wrap">
+      <svg class="progress-svg" width="190" height="190" viewBox="0 0 190 190">
+        <circle class="track" cx="95" cy="95" r="83"/>
+        <circle class="progress" id="circleProgress" cx="95" cy="95" r="83"/>
+      </svg>
+      <button class="main-btn" id="mainClickBtn">КЛИК</button>
+    </div>
+  </div>
+
   <nav class="bottom-nav">
     <button class="nav-btn" data-upg="click">
       <span>🖐️</span>
