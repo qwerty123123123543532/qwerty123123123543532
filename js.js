@@ -3,7 +3,6 @@ const levelNames = [
   "Мастер", "Элита", "Легенда", "Герой", "Король"
 ];
 
-// Генерируем 10 апгрейдов для каждой категории
 function createUpgrades(baseName, basePrice, baseBonus, multPrice, multBonus, isRegen = false) {
   let arr = [];
   for(let i=1;i<=10;i++) {
@@ -22,7 +21,6 @@ let upgrades = {
   energy: createUpgrades("энергия", 80, 5, 1.6, 5),
   regen: createUpgrades("восстановление", 120, 1, 2, 1, true)
 };
-
 let bought = {
   click: Array(10).fill(false),
   autoclick: Array(10).fill(false),
@@ -44,33 +42,41 @@ let levelTarget = 100;
 
 function render() {
   document.getElementById('balance').textContent = formatNum(coins);
+  document.getElementById('energyText').textContent = energy;
+  document.getElementById('energyInner').style.width = (100*energy/energyMax)+"%";
+  document.getElementById('levelNum').textContent = level;
+  document.getElementById('levelShort').textContent = levelNames[level-1] || "";
   document.getElementById('statPerClick').textContent = perClick;
   document.getElementById('statPerSec').textContent = perSec;
   document.getElementById('statGoal').textContent = formatNum(levelTarget - coins > 0 ? levelTarget - coins : 0);
-  document.getElementById('energyText').textContent = energy+" / "+energyMax;
-  document.getElementById('energyInner').style.width = (100*energy/energyMax)+"%";
-  let name = `${level} уровень ${levelNames[level-1] || ""}`;
-  document.getElementById('levelName').textContent = name;
+
+  // Круговой прогресс уровня
   let prevTarget = level === 1 ? 0 : 100 * Math.pow(2, level-2);
-  let prc = 100 * (coins - prevTarget) / (levelTarget - prevTarget);
-  document.getElementById('progressInner').style.width = (prc<0?0:prc>100?100:prc) + "%";
+  let prc = Math.max(0, Math.min(1, (coins-prevTarget)/(levelTarget-prevTarget)));
+  let circ = 2 * Math.PI * 83;
+  let val = circ * prc;
+  document.getElementById('circleProgress').setAttribute("stroke-dasharray", `${val} ${circ}`);
 }
+
 function formatNum(n) {
   if (n>=1e6) return (n/1e6).toFixed(2)+"M";
   if (n>=1e3) return (n/1e3).toFixed(1)+"K";
   return n;
 }
+
 function addCoins(amount) {
   coins += amount;
   checkLevel();
   render();
 }
+
 function checkLevel() {
   while(coins >= levelTarget && level < 10) {
     level++;
     levelTarget = 100 * Math.pow(2, level-1);
   }
 }
+
 function tryClick() {
   if(energy>=perClick) {
     energy -= perClick;
@@ -78,24 +84,29 @@ function tryClick() {
   }
   render();
 }
+
 function autoIncome() {
   if (perSec > 0) addCoins(perSec);
 }
+
 function regenEnergy() {
-  if(energy < energyMax) {
+  if (energy < energyMax) {
     energy = Math.min(energy + energyRegen, energyMax);
     render();
   }
 }
+
 function startTimers() {
   if(regenTimer) clearInterval(regenTimer);
   regenTimer = setInterval(regenEnergy, regenInterval);
   if(autoTimer) clearInterval(autoTimer);
   autoTimer = setInterval(autoIncome, 1000);
 }
+
 document.querySelectorAll('.nav-btn').forEach(btn => {
   btn.onclick = () => openUpgradePanel(btn.dataset.upg);
 });
+
 function openUpgradePanel(type) {
   let bg = document.getElementById('upgradePanel');
   bg.innerHTML = '';
@@ -155,12 +166,14 @@ function openUpgradePanel(type) {
   panel.appendChild(list);
   bg.appendChild(panel);
 }
+
 function closeUpgradePanel() {
   let bg = document.getElementById('upgradePanel');
   bg.classList.remove('active');
   bg.style.display = 'none';
   bg.innerHTML = '';
 }
+
 document.getElementById('mainClickBtn').onclick = tryClick;
 startTimers();
 render();
