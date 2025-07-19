@@ -9,7 +9,6 @@
 </head>
 <body>
   <div class="main-card">
-    <!-- Верхняя панель с карточками -->
     <div class="top-stats">
       <div class="stat-box">
         <span id="statPerClick">3</span>
@@ -24,7 +23,6 @@
         <label>до цели</label>
       </div>
     </div>
-    <!-- Баланс и уровень -->
     <div class="balance-row">
       <span class="coin">🪙</span>
       <span id="balance" class="main-balance">0</span>
@@ -35,12 +33,12 @@
     <div class="progress-bar">
       <div id="progressInner" class="progress-inner"></div>
     </div>
-    <!-- Центр: аватар + клик -->
-    <div class="avatar-wrap">
-      <div class="avatar-circle">🐹</div>
+    <div class="avatar-center">
+      <div class="avatar-circle">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f439.png" alt="hamster" width="48" height="48" style="vertical-align:middle;">
+      </div>
       <button class="main-btn" id="mainClickBtn">КЛИК</button>
     </div>
-    <!-- Энергия -->
     <div class="energy-wrap">
       <span class="energy-emoji">⚡</span>
       <span id="energyText">20 / 20</span>
@@ -49,7 +47,6 @@
       <div id="energyInner" class="energy-inner"></div>
     </div>
   </div>
-  <!-- Нижнее меню -->
   <nav class="bottom-nav">
     <button class="nav-btn" data-upg="click">
       <span>🖐️</span>
