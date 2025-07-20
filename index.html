@@ -25,7 +25,6 @@
   <div class="energy-bar">
     <div id="energyInner" class="energy-inner"></div>
   </div>
-
   <div class="top-stats-bar">
     <div><b id="statPerClick">3</b> за клик</div>
     <div><b id="statPerSec">0</b> в секунду</div>
@@ -34,13 +33,18 @@
   <div class="center-wrap">
     <div class="click-circle-wrap">
       <svg class="progress-svg" width="190" height="190" viewBox="0 0 190 190">
+        <defs>
+          <linearGradient id="circleGreen" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#65ff6b"/>
+            <stop offset="100%" stop-color="#00f2a1"/>
+          </linearGradient>
+        </defs>
         <circle class="track" cx="95" cy="95" r="83"/>
         <circle class="progress" id="circleProgress" cx="95" cy="95" r="83"/>
       </svg>
       <button class="main-btn" id="mainClickBtn">КЛИК</button>
     </div>
   </div>
-
   <nav class="bottom-nav">
     <button class="nav-btn" data-upg="click">
       <span>🖐️</span>
@@ -50,13 +54,13 @@
       <span>🤖</span>
       <div>Автоклик</div>
     </button>
-    <button class="nav-btn" data-upg="energy">
+    <button class="nav-btn" data-upg="energy-group">
       <span>⚡</span>
       <div>Энергия</div>
     </button>
-    <button class="nav-btn" data-upg="regen">
-      <span>🔋</span>
-      <div>Восстановление</div>
+    <button class="nav-btn" data-upg="other">
+      <span>☰</span>
+      <div>Прочее</div>
     </button>
   </nav>
   <div id="upgradePanel" class="panel-bg" style="display:none"></div>
